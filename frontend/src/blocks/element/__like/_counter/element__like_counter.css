@@ -1,0 +1,9 @@
+.element__like_counter {
+  margin-top: 3px;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

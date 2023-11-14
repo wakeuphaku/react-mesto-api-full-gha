@@ -1,0 +1,12 @@
+.popup-add__form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 47px;
+  align-items: center;
+}
+@media screen and (max-width: 767px) {
+  .popup-add__form {
+    margin-top: 73px;
+  }
+}

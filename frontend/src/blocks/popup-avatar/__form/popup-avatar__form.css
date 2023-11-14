@@ -1,0 +1,12 @@
+.popup-avatar__form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 54px;
+  align-items: center;
+}
+@media screen and (max-width: 767px) {
+  .popu-edit__form {
+    margin-top: 73px;
+  }
+}

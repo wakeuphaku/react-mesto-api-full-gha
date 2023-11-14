@@ -1,0 +1,7 @@
+.element__block {
+  border-radius: 0px 0px 10px 10px;
+  display: flex;
+  margin-top: 21px;
+  align-items: center;
+  justify-content: space-between;
+}
