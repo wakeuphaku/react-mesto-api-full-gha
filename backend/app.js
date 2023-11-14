@@ -11,9 +11,7 @@ const { PORT = 3000 } = process.env;
 
 const mongoose = require('mongoose');
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 const cors = require('cors');
-
 const NotFoundError = require('./errors/NotFoundError');
 
 const {
