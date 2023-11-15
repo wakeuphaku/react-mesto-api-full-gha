@@ -68,28 +68,29 @@ module.exports.patchUsers = async (req, res, next) => {
     about,
   } = req.body;
   try {
-  const user = await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      name,
-      about,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }).orFail(() => {
-      throw new NotFoundError('Пользователь не найен')
-  });
-      res.send(user);
-    } catch(err)  {
-      if (err.name === 'ValidationError') {
-        next(new BadRequest('Некорректные данные'));
-      } else if (err.name === 'CastError') {
-        next(new BadRequest('Некорректные данные'));
-      } else {
-        next(new BadInfoError('Некорректные данные'));
-      }
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        name,
+        about,
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    ).orFail(() => {
+      throw new NotFoundError('Пользователь не найен');
+    });
+    res.send(user);
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      next(new BadRequest('Некорректные данные'));
+    } else if (err.name === 'CastError') {
+      next(new BadRequest('Некорректные данные'));
+    } else {
+      next(new BadInfoError('Некорректные данные'));
     }
+  }
 };
 
 module.exports.patchAvatar = async (req, res, next) => {
@@ -103,16 +104,17 @@ module.exports.patchAvatar = async (req, res, next) => {
       {
         new: true,
         runValidators: true,
-      }).orFail(() => {
-      throw new NotFoundError('Пользователь не найен')
+      },
+    ).orFail(() => {
+      throw new NotFoundError('Пользователь не найен');
     });
     res.send(user);
-  } catch(err) {
-      if (err.name === 'ValidationError') {
-        return next(new BadInfoError('Переданы некорректные данные'));
-      }
-      return next(err);
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      return next(new BadInfoError('Переданы некорректные данные'));
     }
+    return next(err);
+  }
 };
 
 module.exports.getCurrentUser = async (req, res, next) => {
