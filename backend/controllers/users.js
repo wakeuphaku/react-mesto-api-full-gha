@@ -7,10 +7,9 @@ const NotFoundError = require('../errors/NotFoundError');
 const BadRequest = require('../errors/BadRequest');
 const AuthError = require('../errors/AuthError');
 const EmailError = require('../errors/EmailError');
+const { JWT_SECRET } = require('../config/config');
 
 const CREATED = 201;
-
-const JWT = 'super-strong-secret';
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
@@ -63,12 +62,13 @@ module.exports.getUserId = (req, res, next) => {
     });
 };
 
-module.exports.patchUsers = (req, res, next) => {
+module.exports.patchUsers = async (req, res, next) => {
   const {
     name,
     about,
   } = req.body;
-  User.findByIdAndUpdate(
+  try {
+  const user = await User.findByIdAndUpdate(
     req.user._id,
     {
       name,
@@ -77,12 +77,11 @@ module.exports.patchUsers = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-    },
-  )
-    .then((user) => {
-      res.send({ data: user });
-    })
-    .catch((err) => {
+    }).orFail(() => {
+      throw new NotFoundError('Пользователь не найен')
+  });
+      res.send(user);
+    } catch(err)  {
       if (err.name === 'ValidationError') {
         next(new BadRequest('Некорректные данные'));
       } else if (err.name === 'CastError') {
@@ -90,52 +89,42 @@ module.exports.patchUsers = (req, res, next) => {
       } else {
         next(new BadInfoError('Некорректные данные'));
       }
-    });
+    }
 };
 
-module.exports.patchAvatar = (req, res, next) => {
+module.exports.patchAvatar = async (req, res, next) => {
   const { avatar } = req.body;
-
-  User.findByIdAndUpdate(
-    req.user._id,
-    {
-      avatar,
-    },
-    {
-      new: true,
-      runValidators: true,
-    },
-  )
-    // eslint-disable-next-line consistent-return
-    .then((user) => {
-      if (!user) {
-        return next(new NotFoundError('Пользователь не найен'));
-      }
-      res.send({ user });
-    })
-    .catch((err) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        avatar,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }).orFail(() => {
+      throw new NotFoundError('Пользователь не найен')
+    });
+    res.send(user);
+  } catch(err) {
       if (err.name === 'ValidationError') {
         return next(new BadInfoError('Переданы некорректные данные'));
       }
       return next(err);
-    });
+    }
 };
 
-module.exports.getCurrentUser = (req, res, next) => {
-  User.findById(req.user._id)
-    .then((user) => {
-      if (!user) {
-        return next(new NotFoundError('Пользователь не найден'));
-      }
-      return res.send({ user });
-    })
-    // eslint-disable-next-line consistent-return
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return next(new BadRequest('Переданы некорректные данные'));
-      }
-      return next(err);
-    });
+module.exports.getCurrentUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      throw new NotFoundError('Пользователь не найен');
+    }
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports.login = (req, res, next) => {
@@ -154,7 +143,7 @@ module.exports.login = (req, res, next) => {
           if (!correctPassword) {
             throw new AuthError('Неверный email или пароль');
           }
-          const token = jwt.sign({ _id: user._id }, JWT, { expiresIn: '7d' });
+          const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
           return res.send({ token });
         });
     })

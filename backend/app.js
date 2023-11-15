@@ -26,6 +26,8 @@ const regex = /^https?:\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\\/~+#-]*[\w@
 const corsUrl = [
   'https://mesto.haku.nomoredomainsmonster.ru',
   'http://mesto.haku.nomoredomainsmonster.ru',
+  'http://localhost:3001',
+  'https://localhost:3001',
 ];
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {

@@ -142,6 +142,7 @@ function App() {
     setSelectedCard(null)
     setIsInfoTooltipOpen(false)
   }
+
   const handleLogin = (email) => {
     setIsLogin(true);
     setUserEmail(email);
@@ -155,11 +156,6 @@ function App() {
     setIsInfoTooltipOpen(true);
     setIssSuccessInfoTooltipStatus(isSuccess);
   };
-
-
-  React.useEffect(() => {
-    handleСheckToken();
-  }, []);
 
   const handleСheckToken = () => {
     const jwt = localStorage.getItem("jwt");
@@ -178,7 +174,9 @@ function App() {
     }
   };
 
-
+  React.useEffect(() => {
+    handleСheckToken();
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -24,7 +24,7 @@ export function Register(props) {
         e.preventDefault();
         register(formValue.email, formValue.password)
             .then((item) => {
-                if (item.data) {
+                if (item) {
                     props.openInfoTooltip(true);
                     navigate("/sign-in", { replace: true });
                 } else {

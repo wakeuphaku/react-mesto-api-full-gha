@@ -7,6 +7,10 @@ class Api {
 
   }
 
+  _getHeaders() {
+    return { authorization: `Bearer ${localStorage.getItem('jwt')}`, "Content-Type": "application/json" };
+  }
+
   _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -16,20 +20,20 @@ class Api {
 
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
-      headers: this.headers
+      headers: this._getHeaders()
     })
       .then(this._getResponseData)
   }
   getCards() {
     return fetch(`${this.baseUrl}/cards`, {
-      headers: this.headers
+      headers: this._getHeaders()
     })
       .then(this._getResponseData)
   }
   editProfile(name, hobby) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this._getHeaders(),
       body: JSON.stringify({
         name: name,
         about: hobby
@@ -40,7 +44,7 @@ class Api {
   createCard(data) {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
-      headers: this.headers,
+      headers: this._getHeaders(),
       body: JSON.stringify({
         name: data.place,
         link: data.link
@@ -51,15 +55,15 @@ class Api {
   deleteCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: this.headers
+      headers: this._getHeaders()
     })
       .then(this._getResponseData)
   }
 
-  changeLikeCardStatus(id, isLiked) {
-    return fetch(`${this.baseUrl}/cards/${id}/likes`, {
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
       method: isLiked ? 'DELETE' : 'PUT',
-      headers: this.headers
+      headers: this._getHeaders()
     })
       .then(this._getResponseData)
   }
@@ -68,7 +72,7 @@ class Api {
   changeAvatar(avatar) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this._getHeaders(),
       body: JSON.stringify({
         avatar: avatar.avatar
       }),
