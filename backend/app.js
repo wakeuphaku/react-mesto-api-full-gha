@@ -2,6 +2,8 @@ const express = require('express');
 
 const { errors } = require('celebrate');
 
+const { requestLoggs, errorLoggs } = require('./middlewares/loggs');
+
 const {
   celebrate,
   Joi,
@@ -30,6 +32,8 @@ const corsUrl = [
   'https://localhost:3001',
 ];
 
+
+
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   autoIndex: true,
@@ -37,9 +41,19 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 const app = express();
 
+
+
 app.use(express.json());
 
 app.use(cors({ credentials: true, origin: corsUrl }));
+
+app.use(requestLoggs);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post(
   '/signin',
@@ -70,6 +84,9 @@ app.use(auth);
 
 app.use('/users', require('./routes/users'));
 
+
+app.use('/users', require('./routes/users'));
+
 app.use('/cards', require('./routes/cards'));
 
 app.use((req, res, next) => {
@@ -77,6 +94,8 @@ app.use((req, res, next) => {
 });
 
 app.use(errors());
+
+app.use(errorLoggs);
 
 app.use((err, req, res, next) => {
   const {

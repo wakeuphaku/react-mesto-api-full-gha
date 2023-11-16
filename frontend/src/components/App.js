@@ -156,13 +156,13 @@ function App() {
     setIssSuccessInfoTooltipStatus(isSuccess);
   };
 
-  const handleСheckToken = () => {
+  const handleCheckToken = () => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       checkToken(jwt)
         .then((item) => {
           if (item) {
-            setUserEmail(item.data.email);
+            setUserEmail(item.email);
             setIsLogin(true);
             navigate("/", { replace: true });
           }
@@ -174,7 +174,7 @@ function App() {
   };
 
   React.useEffect(() => {
-    handleСheckToken();
+    handleCheckToken();
   }, []);
 
   return (
