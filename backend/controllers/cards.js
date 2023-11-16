@@ -15,7 +15,7 @@ module.exports.getCards = async (req, res, next) => {
     next(err);
   }
 };
-
+// eslint-disable-next-line consistent-return
 module.exports.createCards = async (req, res, next) => {
   const {
     name,
@@ -63,7 +63,7 @@ module.exports.likeCard = async (req, res, next) => {
       req.params.cardId,
       { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
       { new: true },
-    ).populate(['likes', 'owner']);
+    )
     if (!card) {
       throw new NotFoundError('Некорректные данные');
     }
@@ -85,11 +85,11 @@ module.exports.unlikeCard = async (req, res, next) => {
       req.params.cardId,
       { $pull: { likes: req.user._id } },
       { new: true },
-    ).populate(['likes', 'owner']);
+    )
     if (!card) {
       throw new NotFoundError('Некорректные данные');
     }
-    res.send({ card });
+    res.send(card);
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequest('Некорректные данные'));

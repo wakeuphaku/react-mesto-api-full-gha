@@ -55,14 +55,16 @@ class Api {
   deleteCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._getHeaders()
     })
       .then(this._getResponseData)
   }
 
-  changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+  changeLikeCardStatus(id, isLiked) {
+    return fetch(`${this.baseUrl}/cards/${id}/likes`, {
       method: isLiked ? 'DELETE' : 'PUT',
+      credentials: 'include',
       headers: this._getHeaders()
     })
       .then(this._getResponseData)

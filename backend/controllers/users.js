@@ -92,7 +92,7 @@ module.exports.patchUsers = async (req, res, next) => {
     }
   }
 };
-
+// eslint-disable-next-line consistent-return
 module.exports.patchAvatar = async (req, res, next) => {
   const { avatar } = req.body;
   try {
