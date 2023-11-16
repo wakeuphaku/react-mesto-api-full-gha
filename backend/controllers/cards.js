@@ -63,7 +63,7 @@ module.exports.likeCard = async (req, res, next) => {
       req.params.cardId,
       { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
       { new: true },
-    )
+    );
     if (!card) {
       throw new NotFoundError('Некорректные данные');
     }
@@ -85,7 +85,7 @@ module.exports.unlikeCard = async (req, res, next) => {
       req.params.cardId,
       { $pull: { likes: req.user._id } },
       { new: true },
-    )
+    );
     if (!card) {
       throw new NotFoundError('Некорректные данные');
     }

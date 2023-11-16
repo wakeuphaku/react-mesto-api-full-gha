@@ -2,8 +2,6 @@ const express = require('express');
 
 const { errors } = require('celebrate');
 
-const { requestLoggs, errorLoggs } = require('./middlewares/loggs');
-
 const {
   celebrate,
   Joi,
@@ -14,6 +12,8 @@ const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
 
 const cors = require('cors');
+const { requestLoggs, errorLoggs } = require('./middlewares/loggs');
+
 const NotFoundError = require('./errors/NotFoundError');
 
 const {
@@ -32,16 +32,12 @@ const corsUrl = [
   'https://localhost:3001',
 ];
 
-
-
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   autoIndex: true,
 });
 
 const app = express();
-
-
 
 app.use(express.json());
 
@@ -83,7 +79,6 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 app.use('/users', require('./routes/users'));
-
 
 app.use('/users', require('./routes/users'));
 
