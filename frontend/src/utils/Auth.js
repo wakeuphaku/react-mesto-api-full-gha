@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://api.mesto.haku.nomoredomainsmonster.ru'
 
 const getResponseData = (res) => {
     if (!res.ok) {
