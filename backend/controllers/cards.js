@@ -56,19 +56,19 @@ module.exports.deleteCard = async (req, res, next) => {
     next(err);
   }
 };
-
+// eslint-disable-next-line consistent-return
 module.exports.likeCard = async (req, res, next) => {
   try {
     const card = await Card.findByIdAndUpdate(
       req.params.cardId,
       { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
       { new: true },
-    )
-      .orFail(new NotFoundError('Карточка не найдена'));
-    if (!card) {
-      throw new NotFoundError('Некорректные данные');
+    );
+    if (card) {
+      res.send(card);
+    } else {
+      return next(new NotFoundError('Некорректные данные'));
     }
-    res.send(card);
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequest('Некорректные данные'));
@@ -79,19 +79,19 @@ module.exports.likeCard = async (req, res, next) => {
     }
   }
 };
-
+// eslint-disable-next-line consistent-return
 module.exports.unlikeCard = async (req, res, next) => {
   try {
     const card = await Card.findByIdAndUpdate(
       req.params.cardId,
       { $pull: { likes: req.user._id } },
       { new: true },
-    )
-      .orFail(new NotFoundError('Карточка не найдена'));
-    if (!card) {
-      throw new NotFoundError('Некорректные данные');
+    );
+    if (card) {
+      res.send(card);
+    } else {
+      return next(new NotFoundError('Некорректные данные'));
     }
-    res.send(card);
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequest('Некорректные данные'));
