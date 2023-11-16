@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.43.115
+IP 158.160.43.115
 
 Frontend https://mesto.haku.nomoredomainsmonster.ru/
 
