@@ -44,7 +44,6 @@ app.use(express.json());
 app.use(cors({ credentials: true, origin: corsUrl }));
 
 app.use(requestLoggs);
-
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');

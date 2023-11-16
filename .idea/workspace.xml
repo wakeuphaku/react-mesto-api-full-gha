@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="92d33af9-01a5-46ae-a4ce-28ac1c135c72" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/Auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/options.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/options.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,8 +86,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.lint" />
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
@@ -103,7 +102,7 @@
       <workItem from="1700148023457" duration="2504000" />
       <workItem from="1700154058647" duration="2807000" />
       <workItem from="1700159158092" duration="904000" />
-      <workItem from="1700160157378" duration="52000" />
+      <workItem from="1700160157378" duration="937000" />
     </task>
     <servers />
   </component>
