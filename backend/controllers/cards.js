@@ -3,7 +3,6 @@ const Card = require('../models/card');
 const BadRequest = require('../errors/BadRequest');
 const AccesError = require('../errors/AccesError');
 const NotFoundError = require('../errors/NotFoundError');
-const BadInfoError = require('../errors/BadInfoError');
 
 const CREATED = 201;
 
@@ -70,12 +69,8 @@ module.exports.likeCard = async (req, res, next) => {
       return next(new NotFoundError('Некорректные данные'));
     }
   } catch (err) {
-    if (err.name === 'ValidationError') {
+    if (err.name === 'CastError') {
       next(new BadRequest('Некорректные данные'));
-    } else if (err.name === 'CastError') {
-      next(new BadRequest('Некорректные данные'));
-    } else {
-      next(new BadInfoError('Что то не так'));
     }
   }
 };
@@ -93,12 +88,8 @@ module.exports.unlikeCard = async (req, res, next) => {
       return next(new NotFoundError('Некорректные данные'));
     }
   } catch (err) {
-    if (err.name === 'ValidationError') {
+    if (err.name === 'CastError') {
       next(new BadRequest('Некорректные данные'));
-    } else if (err.name === 'CastError') {
-      next(new BadRequest('Некорректные данные'));
-    } else {
-      next(new BadInfoError('Что то не так'));
     }
   }
 };

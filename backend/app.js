@@ -21,6 +21,8 @@ const {
   login,
 } = require('./controllers/users');
 
+const routes = require('./routes/index');
+
 const auth = require('./middlewares/auth');
 
 const regex = /^https?:\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\\/~+#-]*[\w@?^=%&\\/~+#-])/im;
@@ -77,11 +79,7 @@ app.post('/signup', celebrate({
 
 app.use(auth);
 
-app.use('/users', require('./routes/users'));
-
-app.use('/users', require('./routes/users'));
-
-app.use('/cards', require('./routes/cards'));
+app.use(routes);
 
 app.use((req, res, next) => {
   next(new NotFoundError('Что то не так'));

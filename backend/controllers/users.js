@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const User = require('../models/user');
-const BadInfoError = require('../errors/BadInfoError');
+
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequest = require('../errors/BadRequest');
 const AuthError = require('../errors/AuthError');
@@ -56,8 +56,6 @@ module.exports.getUserId = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new BadRequest('Некорректные данные'));
-      } else {
-        next(new BadInfoError('Некорректные данные'));
       }
     });
 };
@@ -85,10 +83,6 @@ module.exports.patchUsers = async (req, res, next) => {
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequest('Некорректные данные'));
-    } else if (err.name === 'CastError') {
-      next(new BadRequest('Некорректные данные'));
-    } else {
-      next(new BadInfoError('Некорректные данные'));
     }
   }
 };
@@ -111,7 +105,7 @@ module.exports.patchAvatar = async (req, res, next) => {
     res.send(user);
   } catch (err) {
     if (err.name === 'ValidationError') {
-      return next(new BadInfoError('Переданы некорректные данные'));
+      return next(new BadRequest('Переданы некорректные данные'));
     }
     return next(err);
   }
@@ -131,24 +125,15 @@ module.exports.getCurrentUser = async (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-
-  if (!email || !password) {
-    throw new BadRequest('Не передан email или пароль');
-  }
   return User.findOne({ email }).select('+password')
-    .then((user) => {
-      if (!user) {
-        throw new AuthError('Такого пользователя не существует');
-      }
-      return bcrypt.compare(password, user.password)
-        .then((correctPassword) => {
-          if (!correctPassword) {
-            throw new AuthError('Неверный email или пароль');
-          }
-          const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-          return res.send({ token });
-        });
-    })
+    .then((user) => bcrypt.compare(password, user.password)
+      .then((correctPassword) => {
+        if (!correctPassword) {
+          throw new AuthError('Неверный email или пароль');
+        }
+        const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+        return res.send({ token });
+      }))
     .catch((err) => {
       next(err);
     });
