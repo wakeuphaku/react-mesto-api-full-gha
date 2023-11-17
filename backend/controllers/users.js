@@ -5,7 +5,6 @@ const User = require('../models/user');
 
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequest = require('../errors/BadRequest');
-const AuthError = require('../errors/AuthError');
 const EmailError = require('../errors/EmailError');
 const { JWT_SECRET } = require('../config/config');
 
@@ -125,15 +124,11 @@ module.exports.getCurrentUser = async (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findOne({ email }).select('+password')
-    .then((user) => bcrypt.compare(password, user.password)
-      .then((correctPassword) => {
-        if (!correctPassword) {
-          throw new AuthError('Неверный email или пароль');
-        }
-        const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-        return res.send({ token });
-      }))
+  User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+      return res.send({ token });
+    })
     .catch((err) => {
       next(err);
     });
