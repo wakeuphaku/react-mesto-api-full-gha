@@ -6,24 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="92d33af9-01a5-46ae-a4ce-28ac1c135c72" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/cards.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/errors/AccesError.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/errors/AccesError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/errors/AuthError.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/errors/AuthError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/errors/BadRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/errors/BadRequest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/errors/EmailError.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/errors/EmailError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/errors/NotFoundError.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/errors/NotFoundError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/middlewares/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/middlewares/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/middlewares/loggs.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/middlewares/loggs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/card.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/card.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/cards.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/Auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/options.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/options.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +113,7 @@
       <workItem from="1700255652097" duration="64000" />
       <workItem from="1700255725018" duration="41000" />
       <workItem from="1700256195388" duration="3000" />
-      <workItem from="1700262139140" duration="243000" />
+      <workItem from="1700262139140" duration="932000" />
     </task>
     <servers />
   </component>
