@@ -124,8 +124,9 @@ module.exports.getCurrentUser = async (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  User.findUserByCredentials(email, password)
+  return User.findOne({ email }).select('+password')
     .then((user) => {
+      bcrypt.compare(password, user.password);
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
       return res.send({ token });
     })
