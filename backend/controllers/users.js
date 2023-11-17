@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const User = require('../models/user');
-
+const AuthError = require('../errors/AuthError');
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequest = require('../errors/BadRequest');
 const EmailError = require('../errors/EmailError');
@@ -125,11 +125,14 @@ module.exports.getCurrentUser = async (req, res, next) => {
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findOne({ email }).select('+password')
-    .then((user) => {
-      bcrypt.compare(password, user.password);
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-      return res.send({ token });
-    })
+    .then((user) => bcrypt.compare(password, user.password)
+      .then((correctPassword) => {
+        if (!correctPassword) {
+          throw new AuthError('Неверный email или пароль');
+        }
+        const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+        return res.send({ token });
+      }))
     .catch((err) => {
       next(err);
     });
