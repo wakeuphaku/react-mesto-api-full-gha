@@ -40,7 +40,7 @@ module.exports.deleteCard = async (req, res, next) => {
   try {
     const card = await Card.findById(req.params.cardId);
     if (!card) {
-      next(new NotFoundError('Карточка не найдена '));
+      return next(new NotFoundError('Карточка не найдена '));
     }
     if (card.owner.toString() !== req.user._id.toString()) {
       throw new AccesError('Нет прав');
