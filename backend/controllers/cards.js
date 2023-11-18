@@ -71,6 +71,8 @@ module.exports.likeCard = async (req, res, next) => {
   } catch (err) {
     if (err.name === 'CastError') {
       next(new BadRequest('Некорректные данные'));
+    } else {
+      next(err);
     }
   }
 };
@@ -90,6 +92,8 @@ module.exports.unlikeCard = async (req, res, next) => {
   } catch (err) {
     if (err.name === 'CastError') {
       next(new BadRequest('Некорректные данные'));
+    } else {
+      next(err);
     }
   }
 };
